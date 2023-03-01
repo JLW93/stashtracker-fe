@@ -1,21 +1,34 @@
-Get token from logged in user to pass onto API Routes
+GOAL:
+Make an app that allows users to create multiple lists, or "Stashes", and add items to those lists.
+This is to be used for organizational purposes and asset/item tracking.
+Users should be able to log in and out, and while logged in, they should be able to create a Stash or edit an existing one.
+Stashes should only need 1 value, and that is the Stash Name
+The API route for CRUD functions on Stashes is /api/stashes/<stash_id>
 
-Create Stash Item Table
+Users should be able to click on an existing Stash to view the items in the Stash, ideally in another DataTable.
+Users should also be able to edit the name of the existing Stash if needed.
+Stash Items have options for multiple values, including Name, Type, Value, Purchase Date, Serial Number, and Quantity.
+Only the Name is required. Quantity defaults to 1 unless specified otherwise.
+API route for CRUD functions on items is /api/stashes/<stash_id/items/<item_id>.
 
-Figure out why links aren't automatically redirecting
-
-If using google auth, figure out how to access information from google to pass in to database so that the google login can enter and view data (not important)
-
-Figure out how to get stash_id from the selected Stash in the datatable to pass onto useGetItemData in FetchData and also the routes to create items
-
-Figure out how to actually sign in/sign up from React form
-
-Figure out why links aren't clickable until you refresh the page
-
-Figure out how to incorporate the pricecharting api
+I need to use the public API for pricecharting to search for each item by Name and display the current price, if there 
+are results returned from their api.
 
 
 
-I want to be able to either click on the Stash in the datatable, or at a 
-minimum use the checkbox and a button to open a new datatable that displays all of the items in that stash
+ISSUES:
+- Links aren't automatically redirecting to the specified page and require a refresh before loading the correct page
+- Links aren't clickable until you refresh the page
 
+
+
+TODO:
+- Create Stash Item Table
+- Get token from logged in user to pass onto API Routes
+- Get stash_id from the selected Stash in the datatable to pass onto useGetItemData in FetchData and 
+  also the api routes to create items
+- Figure out how to actually sign in/sign up from React form
+- Figure out how to incorporate the pricecharting api
+
+- NOT IMPORTANT: If there is enough time, enable Google Login and figure out how to get users who are logged in that way
+  to be able to add items to the database
