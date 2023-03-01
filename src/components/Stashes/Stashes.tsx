@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RouteComponentProps, withRouter, Switch, Route } from 'react-router-dom';
 import { makeStyles, Button, Dialog, DialogContent, DialogTitle, DialogContentText, DialogActions } from '@material-ui/core';
+import { CreateStashForm } from '../CreateStashForm';
+import { DataTable } from '../DataTable'
 
 import { Navbar } from '../Navbar'
 
@@ -33,7 +35,7 @@ export const Stashes = () => {
                 <DialogTitle id="form-dialog-title">Create a new Stash</DialogTitle>
                 <DialogContent>
                     <DialogContentText></DialogContentText>
-                    {/* <CreateStashForm /> */}
+                    <CreateStashForm />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleDialogClickClose}>Create Stash</Button>
@@ -43,7 +45,7 @@ export const Stashes = () => {
         </div>
         <div>
             <div>
-                {/* <DataTable /> */}
+                <DataTable />
             </div>
         </div>
     </>

@@ -1,0 +1,21 @@
+Get token from logged in user to pass onto API Routes
+
+Create Stash Item Table
+
+Figure out why links aren't automatically redirecting
+
+If using google auth, figure out how to access information from google to pass in to database so that the google login can enter and view data (not important)
+
+Figure out how to get stash_id from the selected Stash in the datatable to pass onto useGetItemData in FetchData and also the routes to create items
+
+Figure out how to actually sign in/sign up from React form
+
+Figure out why links aren't clickable until you refresh the page
+
+Figure out how to incorporate the pricecharting api
+
+
+
+I want to be able to either click on the Stash in the datatable, or at a 
+minimum use the checkbox and a button to open a new datatable that displays all of the items in that stash
+

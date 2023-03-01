@@ -4,15 +4,18 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { FirebaseAppProvider, AuthCheck } from 'reactfire';
+import { firebaseConfig } from './firebaseConfig';
+import 'firebase/auth';
 
 import './main.css'
-import { Home, Stashes, About } from './components'
+import { Home, Stashes, About, Signin } from './components'
 
 const props = "StashTracker"
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <FirebaseAppProvider firebaseConfig={ firebaseConfig }> */}
+    <FirebaseAppProvider firebaseConfig={ firebaseConfig }>
       <Provider store={ store }>
         <Router>
           <Switch>
@@ -30,13 +33,13 @@ ReactDOM.render(
             {/* <Signup /> */}
           </Route>
           <Route path='/signin'>
-            {/* <Signin /> */}
+            <Signin />
           </Route>
 
           </Switch>
         </Router>
       </Provider>
-    {/* </FirebaseAppProvider> */}
+    </FirebaseAppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

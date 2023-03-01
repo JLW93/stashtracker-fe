@@ -17,17 +17,17 @@ export const useGetData = () => {
     return {stashData, getData: handleDataFetch}
 };
 
-export const useGetItemData = () => {
-    const [stashItemData, setItemData] = useState<[]>([]);
+// export const useGetItemData = () => {
+//     const [stashItemData, setItemData] = useState<[]>([]);
 
-    async function handleItemDataFetch() {
-        const result = await server_calls.getStashItems(stash_id);
-        setItemData(result)
-    };
+//     async function handleItemDataFetch() {
+//         const result = await server_calls.getStashItems(stash_id);
+//         setItemData(result)
+//     };
 
-    useEffect( () => {
-        handleItemDataFetch();
-    }, []);
+//     useEffect( () => {
+//         handleItemDataFetch();
+//     }, []);
 
-    return {stashItemData, getData: handleItemDataFetch}
-};
+//     return {stashItemData, getData: handleItemDataFetch}
+// };

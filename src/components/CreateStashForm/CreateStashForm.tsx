@@ -25,8 +25,8 @@ export const CreateStashForm = ( props: CreateStashFormProps) => {
 
     const onSubmit = ( data: any, event: any ) => {
         if (props.id! && props.id.length > 0) {
-            server_calls.update( props.id[0]!, data);
-            setTimeout ( () -> { window.location.reload() }, 1000 );
+            server_calls.updateStash( props.id[0]!, data);
+            setTimeout ( () => { window.location.reload() }, 1000 );
             event.target.reset();
         } else {
             dispatch(chooseStashName(data.stash_name));
