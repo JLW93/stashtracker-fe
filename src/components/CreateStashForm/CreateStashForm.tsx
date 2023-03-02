@@ -43,8 +43,7 @@ export const CreateStashForm = ( props: CreateStashFormProps) => {
                     <label htmlFor="stash_name">Stash Name</label>
                     <Input { ...register('stash_name') } name="stash_name" placeholder="Stash Name" />
                 </div>
-                <Button type="submit">Create Stash</Button>
-                <Button type="reset">Cancel</Button>
+                <Button type="submit">Submit</Button>
             </form>
         </div>
     )

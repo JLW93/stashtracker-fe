@@ -18,7 +18,7 @@ are results returned from their api.
 
 ISSUES:
 - Need to run "set NODE_OPTIONS=--openssl-legacy-provider" for the first time that I run "npm start" after opening VS Code
-
+- Create function isn't working on the data table
 
 TODO:
 - Create Stash Item Table

@@ -72,8 +72,7 @@ export const AddItemForm = ( props: CreateItemFormProps) => {
                     <label htmlFor="quantity">Quantity</label>
                     <Input { ...register('quantity') } name="quantity" placeholder="Quantity" />
                 </div>
-                <Button type="submit">Create Item</Button>
-                <Button type="reset">Cancel</Button>
+                <Button type="submit">Submit</Button>
             </form>
         </div>
     )

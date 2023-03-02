@@ -3,8 +3,8 @@ import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import { useGetData } from '../../custom-hooks';
 import { server_calls } from '../../api';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, makeStyles } from '@material-ui/core';
-import { AddItemForm } from '../AddItemForm';
-// import { CreateStashForm } from '../CreateStashForm'
+// import { AddItemForm } from '../AddItemForm';
+import { CreateStashForm } from '../CreateStashForm'
 
 const columns: GridColDef[] = [
   { field: 'stash_id', headerName: 'Stash ID', width: 90, hide: true },
@@ -46,7 +46,7 @@ export const DataTable = () => {
 
   return (
     <div style={ {  height: 400, width: '100%'} }>
-      <DataGrid rows={ stashData } columns={ columns } pageSize={ 5 } checkboxSelection={ true }
+      <DataGrid rows={ stashData } columns={ columns } pageSize={ 10 } checkboxSelection={ true }
       getRowId={ ( row: any ) => row.stash_id }
       onSelectionModelChange={ (item: any ) => {
         setSelectionModel( item )
@@ -58,7 +58,7 @@ export const DataTable = () => {
       <Dialog open={ open } onClose={ handleClose } aria-labelledby="form-dialog-title">
         <DialogContent>
           <DialogContentText></DialogContentText>
-          <AddItemForm id={ selectionModel[0]! } />
+          <CreateStashForm id={ selectionModel! } />
         </DialogContent>
         <DialogActions>
           <Button onClick={ handleClose }>Cancel</Button>

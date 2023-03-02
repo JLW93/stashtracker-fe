@@ -38,7 +38,6 @@ export const Stashes = () => {
                     <CreateStashForm />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDialogClickClose}>Create Stash</Button>
                     <Button onClick={handleDialogClickClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
