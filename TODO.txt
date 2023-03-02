@@ -17,9 +17,7 @@ are results returned from their api.
 
 
 ISSUES:
-- Links aren't automatically redirecting to the specified page and require a refresh before loading the correct page
-- Links aren't clickable until you refresh the page
-
+- Need to run "set NODE_OPTIONS=--openssl-legacy-provider" for the first time that I run "npm start" after opening VS Code
 
 
 TODO:

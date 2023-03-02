@@ -85,9 +85,7 @@ export const Home = ( props: Props ) => {
       </div>
       <div className={classes.div}>
         <Button className={`${classes.button} ${classes.buttonSpacing}`}>
-          <Router>
             <Link to='/signup' className={classes.buttonText}>Start Tracking <span className={`${classes.innerButton}`}>Free</span></Link>
-          </Router>
         </Button>
       </div>
     </>

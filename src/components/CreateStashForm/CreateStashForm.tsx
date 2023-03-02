@@ -8,12 +8,13 @@ import { Button } from '@material-ui/core';
 import { server_calls } from '../../api';
 
 interface CreateStashFormProps {
-    id?: string;
+    id?: string[];
     data?: {}
 };
 
 interface StashState {
     stash_name: string;
+    date_modified: string;
 };
 
 export const CreateStashForm = ( props: CreateStashFormProps) => {

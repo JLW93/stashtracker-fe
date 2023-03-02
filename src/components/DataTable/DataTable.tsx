@@ -8,7 +8,8 @@ import { AddItemForm } from '../AddItemForm';
 
 const columns: GridColDef[] = [
   { field: 'stash_id', headerName: 'Stash ID', width: 90, hide: true },
-  { field: 'stash_name', headerName: 'Stash Name', flex: 1}
+  { field: 'stash_name', headerName: 'Stash Name', flex: 1},
+  { field: 'modified_date', headerName: 'Date Modified', flex: 1}
 ];
 
 interface gridData {
@@ -44,8 +45,9 @@ export const DataTable = () => {
     };
 
   return (
-    <div>
-      <DataGrid rows={ stashData } columns={ columns } pageSize={ 10 } checkboxSelection={ true }
+    <div style={ {  height: 400, width: '100%'} }>
+      <DataGrid rows={ stashData } columns={ columns } pageSize={ 5 } checkboxSelection={ true }
+      getRowId={ ( row: any ) => row.stash_id }
       onSelectionModelChange={ (item: any ) => {
         setSelectionModel( item )
       }} />

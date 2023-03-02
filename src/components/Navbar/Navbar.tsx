@@ -1,9 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import { Link, BrowserRouter as Router } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import arrow from '../../assets/images/arrow.png';
 import stashIcon from '../../assets/images/stash.png';
+
+interface NavProps {
+    history: RouteComponentProps["history"];
+    location: RouteComponentProps["location"];
+    match: RouteComponentProps["match"];
+}
 
 const useStyles = makeStyles({
     logo: {
@@ -132,7 +138,7 @@ const useStyles = makeStyles({
     }
 })
 
-export const Navbar = () => {
+export const Navbar = withRouter( ( props: NavProps )  => {
 
     // use [isActive, setIsActive] state and onClick to change navbar link color for the active item
     // also use [className, setClassName] to set class to activeLink
@@ -147,43 +153,33 @@ export const Navbar = () => {
                     <h1 className={`${classes.navTitle} ${classes.navbarSpacing}`}>Stash<span className={classes.darkGray}>Tracker</span></h1>
                 </div>
                 <div className={`${classes.row}`}>
-                    <Router>
-                        <h2 className={`${classes.navText} ${classes.navbarTextSpacing}`}>
-                            <Link to='/' className={classes.link}>
-                                Home
-                            </Link>
-                        </h2>
-                    </Router>
-                    <Router>
-                        <h2 className={`${classes.navText} ${classes.navbarTextSpacing}`}>
-                            <Link to='/stashes' className={classes.link}>
-                                Stashes
-                            </Link>
-                        </h2>
-                    </Router>
-                    <Router>
-                        <h2 className={`${classes.navText} ${classes.navbarTextSpacing}`}>
-                            <Link to='/about' className={classes.link}>
-                                About
-                            </Link>
-                        </h2>
-                    </Router>
+                    <h2 className={`${classes.navText} ${classes.navbarTextSpacing}`}>
+                        <Link to='/' className={classes.link}>
+                            Home
+                        </Link>
+                    </h2>
+                    <h2 className={`${classes.navText} ${classes.navbarTextSpacing}`}>
+                        <Link to='/stashes' className={classes.link}>
+                            Stashes
+                        </Link>
+                    </h2>
+                    <h2 className={`${classes.navText} ${classes.navbarTextSpacing}`}>
+                        <Link to='/about' className={classes.link}>
+                            About
+                        </Link>
+                    </h2>
                 </div>
             </div>
             <div className={`${classes.navbarSpacing} ${classes.row} ${classes.center}`}>
                 <Button className={classes.navButton}>
-                    <Router>
-                        <Link to='/signup' className={classes.link}><span className={classes.buttonText}>Get Started</span><span className={classes.buttonArrow}></span></Link>
-                    </Router>
+                    <Link to='/signup' className={classes.link}><span className={classes.buttonText}>Get Started</span><span className={classes.buttonArrow}></span></Link>
                 </Button>
                 <h5 className={`${classes.navTextSmall} ${classes.navbarSpacingSmall}`}>OR</h5>
                 <Button className={classes.navButtonSmall}>
-                    <Router>
-                        <Link to='/signin' className={classes.link}><span className={classes.buttonTextSmall}>Sign In</span></Link>
-                    </Router>
+                    <Link to='/signin' className={classes.link}><span className={classes.buttonTextSmall}>Sign In</span></Link>
                 </Button>
             </div>
         </div>
     </>
   )
-}
+})

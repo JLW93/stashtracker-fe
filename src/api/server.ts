@@ -1,6 +1,6 @@
 // import token from '../components/LogIn';
 
-let token = '1234'
+let token = 'f0340b8f89a08c3b66d82b6f36949ada38781dcf57c88f0a'
 
 export const server_calls = {
     getStashes: async () => {

@@ -38,7 +38,7 @@ export const Signin = withRouter( ( props: SigninProps )  => {
         <Navbar />
         <Container maxWidth="sm">
             <Typography>Sign In</Typography>
-            <form action="http://127.0.0.1:5000/signin" method="POST">
+            <form action="/signin" method="POST">
                 <div>
                     <label htmlFor="email">Email</label>
                     <Input name="email" placeholder="Enter email here" />
