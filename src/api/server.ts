@@ -1,8 +1,7 @@
-// import token from '../components/LogIn';
-
-let token = 'f0340b8f89a08c3b66d82b6f36949ada38781dcf57c88f0a'
+import { token } from "./token";
 
 export const server_calls = {
+
     getStashes: async () => {
         const response = await fetch(`http://127.0.0.1:5000/api/stashes`, {
             method: 'GET',
@@ -131,5 +130,17 @@ export const server_calls = {
         };
 
         return await response.json()
-    }
+    },
+
+    // signIn: async ( username: string, password: string ) => {
+    //     const response = await fetch(`http://127.0.0.1:5000/signin`, {
+    //         method: 'POST'
+    //     });
+
+    //     if (!response.ok) {
+    //         throw new Error('Login Failure')
+    //     };
+
+    //     return await response.json()
+    // }
 }

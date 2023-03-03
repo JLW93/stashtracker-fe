@@ -22,11 +22,10 @@ ISSUES:
 
 TODO:
 - Create Stash Item Table
-- Get token from logged in user to pass onto API Routes
 - Get stash_id from the selected Stash in the datatable to pass onto useGetItemData in FetchData and 
   also the api routes to create items
-- Figure out how to actually sign in/sign up from React form
 - Figure out how to incorporate the pricecharting api
+- Finish styling
 
 - NOT IMPORTANT: If there is enough time, enable Google Login and figure out how to get users who are logged in that way
   to be able to add items to the database
