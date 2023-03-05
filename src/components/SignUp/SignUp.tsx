@@ -14,13 +14,13 @@ const Alert = ( props: AlertProps ) => {
     return <MuiAlert elevation={ 6 } variant="filled" { ...props } />;
 };
 
-interface SigninProps {
+interface SignUpProps {
     history: RouteComponentProps["history"];
     location: RouteComponentProps["location"];
     match: RouteComponentProps["match"];
 };
 
-export const Signin = withRouter( ( props: SigninProps )  => {
+export const SignUp = withRouter( ( props: SignUpProps )  => {
 
     // const auth = useAuth();
     // const classes = useStyles();
@@ -28,25 +28,29 @@ export const Signin = withRouter( ( props: SigninProps )  => {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ confirmEmail, setConfirmEmail ] = useState('');
+    const [ confirmPassword, setConfirmPassword ] = useState('');
 
     const handleSubmit = async ( event: any ) => {
         event.preventDefault();
 
-        const response = await fetch('http://127.0.0.1:5000/signin', {
+        const response = await fetch('http://127.0.0.1:5000/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify( { email, password } )
+            body: JSON.stringify( { email, confirmEmail, password, confirmPassword } )
         });
 
         if ( response.ok ) {
             console.log(response)
-            const { token } = await response.json()
-            localStorage.setItem('token', token)
+            // const { token } = await response.json()
+            // localStorage.setItem('token', token)
+            const data = await response.json()
+            alert( data.message )
             window.location.href = '/';
         } else {
             const error = await response.json();
-            console.error( error.message );
-            alert( 'Failed to login. ' );
+            console.error( error.error );
+            alert( 'Account creation failed.' );
         }
     };
 
@@ -54,15 +58,19 @@ export const Signin = withRouter( ( props: SigninProps )  => {
     <>
         <Navbar />
         <Container maxWidth="sm">
-            <Typography>Sign In</Typography>
+            <Typography>Sign Up</Typography>
             <form onSubmit={ handleSubmit }>
                 <div>
-                    
                     <input name="Email" type="email" value={ email } onChange={ (e) => setEmail( e.target.value )} placeholder="Email" />
                 </div>
                 <div>
-                    
+                    <input name="Confirm Email" type="email" value={ confirmEmail } onChange={ (e) => setConfirmEmail( e.target.value )} placeholder="Re-enter Email" />
+                </div>
+                <div>
                     <input name="Password" type="password" value={ password } onChange={ (e) => setPassword( e.target.value)} placeholder="Password" />
+                </div>
+                <div>
+                    <input name="Confirm Password" type="password" value={ confirmPassword } onChange={ (e) => setConfirmPassword( e.target.value)} placeholder="Re-enter Password" />
                 </div>
                 <Button type="submit" variant="contained" color="primary">Sign In</Button>
             </form>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -143,6 +143,21 @@ export const Navbar = withRouter( ( props: NavProps )  => {
     // use [isActive, setIsActive] state and onClick to change navbar link color for the active item
     // also use [className, setClassName] to set class to activeLink
     const classes = useStyles();
+    const [ loggedIn, setLoggedIn ] = useState(false);
+
+    useEffect( () => {
+        const token = localStorage.getItem('token');
+        if ( token ) {
+            setLoggedIn(true);
+        } else {
+            setLoggedIn(false);
+        }
+    }, []);
+
+    const handleLogOut = async () => {
+        localStorage.removeItem('token');
+        setLoggedIn(false)
+    };
 
   return (
     <>
@@ -171,13 +186,18 @@ export const Navbar = withRouter( ( props: NavProps )  => {
                 </div>
             </div>
             <div className={`${classes.navbarSpacing} ${classes.row} ${classes.center}`}>
-                <Button className={classes.navButton}>
-                    <Link to='/signup' className={classes.link}><span className={classes.buttonText}>Get Started</span><span className={classes.buttonArrow}></span></Link>
-                </Button>
-                <h5 className={`${classes.navTextSmall} ${classes.navbarSpacingSmall}`}>OR</h5>
-                <Button className={classes.navButtonSmall}>
-                    <Link to='/signin' className={classes.link}><span className={classes.buttonTextSmall}>Sign In</span></Link>
-                </Button>
+                {loggedIn ? (
+                    <Button className={classes.navButton} onClick={handleLogOut}>Log Out</Button>
+                ) : (
+                <>
+                    <Button className={classes.navButton}>
+                        <Link to='/signup' className={classes.link}><span className={classes.buttonText}>Get Started</span><span className={classes.buttonArrow}></span></Link>
+                    </Button>
+                    <h5 className={`${classes.navTextSmall} ${classes.navbarSpacingSmall}`}>OR</h5>
+                    <Button className={classes.navButtonSmall}>
+                        <Link to='/signin' className={classes.link}><span className={classes.buttonTextSmall}>Sign In</span></Link>
+                    </Button>
+                </>)}
             </div>
         </div>
     </>

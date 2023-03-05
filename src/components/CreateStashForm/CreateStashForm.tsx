@@ -8,13 +8,12 @@ import { Button } from '@material-ui/core';
 import { server_calls } from '../../api';
 
 interface CreateStashFormProps {
-    id?: string[];
+    stash_id?: string[];
     data?: {}
 };
 
 interface StashState {
     stash_name: string;
-    date_modified: string;
 };
 
 export const CreateStashForm = ( props: CreateStashFormProps) => {
@@ -25,13 +24,16 @@ export const CreateStashForm = ( props: CreateStashFormProps) => {
     const { register, handleSubmit } = useForm( { } )
 
     const onSubmit = ( data: any, event: any ) => {
-        if (props.id! && props.id.length > 0) {
-            server_calls.updateStash( props.id[0]!, data);
+        if (props.stash_id! && props.stash_id.length > 0) {
+            server_calls.updateStash( props.stash_id[0]!, data);
             setTimeout ( () => { window.location.reload() }, 1000 );
             event.target.reset();
         } else {
+            console.log(data)
+            console.log(data.stash_name)
             dispatch(chooseStashName(data.stash_name));
             server_calls.createStash(store.getState());
+            console.log(store.getState())
             setTimeout( () => { window.location.reload() }, 1000 )
         }
     }

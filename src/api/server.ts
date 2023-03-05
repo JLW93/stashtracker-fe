@@ -18,16 +18,18 @@ export const server_calls = {
         return await response.json()
     },
 
-    createStash: async ( data: any = {} ) => {
+    createStash: async ( data: any = {}) => {
         const response = await fetch(`http://127.0.0.1:5000/api/stashes`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'x-access-token': `Bearer ${token}`
-            }
+            },
+            body: JSON.stringify(data)
         });
 
         if (!response.ok) {
+            console.log(response)
             throw new Error('Failed to add Stash to the server.')
         };
 
@@ -131,16 +133,4 @@ export const server_calls = {
 
         return await response.json()
     },
-
-    // signIn: async ( username: string, password: string ) => {
-    //     const response = await fetch(`http://127.0.0.1:5000/signin`, {
-    //         method: 'POST'
-    //     });
-
-    //     if (!response.ok) {
-    //         throw new Error('Login Failure')
-    //     };
-
-    //     return await response.json()
-    // }
 }

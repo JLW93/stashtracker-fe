@@ -9,8 +9,8 @@ import { firebaseConfig } from './firebaseConfig';
 import 'firebase/auth';
 
 import './main.css'
-import { Home, Stashes, About, Signin } from './components'
-
+import { Home, Stashes, About, Signin, SignUp, } from './components'
+import { ItemDataTable } from './components/ItemDataTable';
 const props = "StashTracker"
 
 ReactDOM.render(
@@ -30,7 +30,7 @@ ReactDOM.render(
             <About />
           </Route>
           <Route path='/signup'>
-            {/* <Signup /> */}
+            <SignUp />
           </Route>
           <Route path='/signin'>
             <Signin />
