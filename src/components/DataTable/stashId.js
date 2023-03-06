@@ -1,0 +1,1 @@
+export const stashId = localStorage.getItem('stash_id')

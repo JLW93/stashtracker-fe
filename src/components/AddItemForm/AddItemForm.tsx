@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form';
 import {chooseItemName, chooseItemType, chooseItemValue, choosePurchaseDate, chooseQuantity, chooseSerialNumber } from '../../redux/slices/RootSlice';
 import { Input } from '../SharedComponents/Input';
 import { Button } from '@material-ui/core';
-
+import { stashId } from '../DataTable/stashId';
 import { server_calls } from '../../api';
 
 interface CreateItemFormProps {
-    id?: string;
+    item_id?: string[];
     data?: {}
 };
 
@@ -29,18 +29,21 @@ export const AddItemForm = ( props: CreateItemFormProps) => {
     const { register, handleSubmit } = useForm( { } )
 
     const onSubmit = ( data: any, event: any ) => {
-        if (props.id! && props.id.length > 0) {
-            server_calls.updateStashItem( props.id[0]!, data);
+        console.log(props.item_id)
+        console.log(data)
+        if (props.item_id! && props.item_id.length > 0) {
+            server_calls.updateStashItem( stashId || '', props.item_id[0]!, data);
             setTimeout ( () => { window.location.reload() }, 1000 );
             event.target.reset();
         } else {
+            console.log(data)
             dispatch(chooseItemName(data.item_name));
             dispatch(chooseItemType(data.item_type));
             dispatch(chooseItemValue(data.item_value));
             dispatch(choosePurchaseDate(data.purchase_date));
             dispatch(chooseQuantity(data.quantity));
             dispatch(chooseSerialNumber(data.serial_number));
-            server_calls.createStashItem(store.getState());
+            server_calls.createStashItem(stashId || '', store.getState());
             setTimeout( () => { window.location.reload() }, 1000 )
         }
     }
@@ -54,7 +57,7 @@ export const AddItemForm = ( props: CreateItemFormProps) => {
                 </div>
                 <div>
                     <label htmlFor="item_type">Brand</label>
-                    <Input { ...register('sitem_type') } name="item_type" placeholder="Brand" />
+                    <Input { ...register('item_type') } name="item_type" placeholder="Brand" />
                 </div>
                 <div>
                     <label htmlFor="item_value">Purchase Price</label>

@@ -45,10 +45,6 @@ export const CreateStashForm = ( props: CreateStashFormProps) => {
                     <label htmlFor="stash_name">Stash Name</label>
                     <Input { ...register('stash_name') } name="stash_name" placeholder="Stash Name" />
                 </div>
-                {/* <div>
-                    <label htmlFor="date_modified">Date Modified</label>
-                    <Input { ...register('date_modified') } name="date_modified" placeholder="Date Modified" />
-                </div> */}
                 <Button type="submit">Submit</Button>
             </form>
         </div>

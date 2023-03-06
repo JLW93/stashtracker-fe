@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { RouteComponentProps, withRouter, Switch, Route } from 'react-router-dom';
 import { makeStyles, Button, Dialog, DialogContent, DialogTitle, DialogContentText, DialogActions } from '@material-ui/core';
 import { CreateStashForm } from '../CreateStashForm';
+import { AddItemForm } from '../AddItemForm';
 import { DataTable } from '../DataTable'
 import { ItemDataTable } from '../ItemDataTable';
 
@@ -41,32 +42,50 @@ export const Stashes = () => {
         <Navbar />
         {loggedIn ? (
             <>
-                <div>
-                    <h1>My Stashes</h1>
-                    <Button onClick={handleDialogClickOpen}>Create a new Stash</Button>
-                    <Dialog open={dialogOpen} onClose={handleDialogClickOpen} aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">Create a new Stash</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText></DialogContentText>
-                            <CreateStashForm />
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleDialogClickClose}>Cancel</Button>
-                        </DialogActions>
-                    </Dialog>
-                </div>
-                <div>
-                    <Switch>
-                        <Route exact path='/stashes'>
+                <Switch>
+                    <Route exact path='/stashes'>
+                        <div>
+                            <h1>My Stashes</h1>
+                            <Button onClick={handleDialogClickOpen}>Create a new Stash</Button>
+                            <Dialog open={dialogOpen} onClose={handleDialogClickOpen} aria-labelledby="form-dialog-title">
+                                <DialogTitle id="form-dialog-title">Create a new Stash</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText></DialogContentText>
+                                    <CreateStashForm />
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleDialogClickClose}>Cancel</Button>
+                                </DialogActions>
+                            </Dialog>
+                        </div>
+                        <div>
                             <DataTable />
-                        </Route>
-                        <Route exact path='/stashes/:stash_id/items'>
+                        </div>
+                    </Route>
+                    <Route exact path='/stashes/:stash_id'>
+                    <div>
+                            <h1>Stash Items</h1>
+                            <Button onClick={handleDialogClickOpen}>Add Item</Button>
+                            <Dialog open={dialogOpen} onClose={handleDialogClickOpen} aria-labelledby="form-dialog-title">
+                                <DialogTitle id="form-dialog-title">Add an Item</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText></DialogContentText>
+                                    <AddItemForm />
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleDialogClickClose}>Cancel</Button>
+                                </DialogActions>
+                            </Dialog>
+                        </div>
+                        <div>
                             <ItemDataTable />
-                        </Route>
-                    </Switch>
-                </div>
-            </> ) : (
-                <h1>Please log in to view your Stashes.</h1>
+                        </div>   
+                    </Route>
+                </Switch>
+            </>
+
+            ) : (
+            <h1>Please log in to view your Stashes.</h1>
             )}
     </>
   )

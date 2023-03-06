@@ -85,13 +85,30 @@ export const server_calls = {
         return await response.json()
     },
 
+    getStashItem: async ( stash_id: string, item_id: string ) => {
+        const response = await fetch(`http://127.0.0.1:5000/api/stashes/${stash_id}/items/${item_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch Stash Items from the server.')
+        };
+
+        return await response.json()
+    },
+
     createStashItem: async ( stash_id: string, data: any = {} ) => {
         const response = await fetch(`http://127.0.0.1:5000/api/stashes/${stash_id}/items`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'x-access-token': `Bearer ${token}`
-            }
+            },
+            body: JSON.stringify(data)
         });
 
         if (!response.ok) {
@@ -133,4 +150,19 @@ export const server_calls = {
 
         return await response.json()
     },
+
+    getPriceData: async ( item_name: string ) => {
+        const response = await fetch(`https://www.pricecharting.com/api/product?t=d69e7f507b53112fdf080870755f01ba5172ee48&q=${item_name}`, {
+            method: 'GET'
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve pricing data.')
+        };
+
+        return await response.json()
+
+        // use graded-price, loose-price, product-name, console name
+        // prices are shown in penny amount, need to be formatted
+    }
 }

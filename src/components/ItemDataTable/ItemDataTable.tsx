@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
-import { server_calls } from '../../api';
 import { useParams } from 'react-router-dom';
+import { Button, 
+  DialogActions, 
+  DialogContent, 
+  DialogContentText, 
+  Dialog, 
+  makeStyles,
+  Table,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableBody } from '@material-ui/core';
+
+import { server_calls } from '../../api';
+import { useGetItemData } from '../../custom-hooks';
+import { AddItemForm } from '../AddItemForm';
+import { stashId } from '../DataTable/stashId';
+import { PriceCharting } from '../PriceCharting';
 
 const columns: GridColDef[] = [
   { field: 'item_id', headerName: 'Item ID', width: 90, hide: true },
@@ -14,35 +30,83 @@ const columns: GridColDef[] = [
   { field: 'stash_id', headerName: 'Stash ID', flex: 1, hide: true },
 ]
 
-interface Item {
-  item_id?: string;
-  item_name: string;
-  item_type: string;
-  item_value: string;
-  purchase_date: string;
-  serial_number: string;
-  quantity: number;
-  stash_id: string;
-}
+const useStyles = makeStyles({
+
+});
 
 export const ItemDataTable = () => {
-  const { stash_id } = useParams<{ stash_id:string }>();
-  const [ items, setItems ] = useState<Item[]>( [] );
+  
+  let { stashItemData: itemData, getData } = useGetItemData(stashId || '');
+  let [ open, setOpen ] = useState(false);
+  const [ selectionModel, setSelectionModel ] = useState<string[]>( [] );
+  const [ priceChartingData, setPriceChartingData ] = useState<any>(null)
+  const classes = useStyles();
 
-const fetchItems = async ( stash_id: string ) => {
-  const response = await fetch(`http://127.0.0.1:5000/stashes/${stash_id}/items`);
-  const data = await response.json();
-  console.log(data)
-  setItems(data)
-}
+  
+
+  let handlePriceChartingData = async () => {
+    // console.log(selectionModel)
+    const data = await server_calls.getStashItem(stashId || '', selectionModel[0])
+    // console.log(data)
+
+    let itemName = data['item_name']
+    const priceData = await server_calls.getPriceData(itemName);
+    // console.log(priceData)
+
+    setOpen(true);
+    setPriceChartingData(priceData);
+  };
 
   useEffect( () => {
-    fetchItems(stash_id);
-  }, [stash_id]);
+    console.log(priceChartingData)
+  }, [priceChartingData])
+
+  let handleOpen = () => {
+    setOpen(true);
+  };
+
+  let handleClose = () => {
+    setOpen(false);
+  };
+
+  let deleteData = () => {
+    server_calls.deleteStashItem( stashId || '', selectionModel[0] );
+    getData(stashId || '');
+    setTimeout( () => { window.location.reload() }, 1000 );
+  };
 
   return (
     <div style={ { height: 400, width: '100%' } }>
-      <DataGrid rows={ items } columns={ columns } pageSize={ 10 } />      
+      <DataGrid rows={ itemData } columns={ columns } pageSize={ 10 } checkboxSelection={ true } getRowId={ (row) => row.item_id}
+      onSelectionModelChange={ ( item: any ) => {
+        setSelectionModel( item )
+      }} />
+
+      <Button onClick={ handleOpen }>Edit</Button>
+      <Button onClick={ deleteData }>Delete</Button>
+      <Button onClick={ handlePriceChartingData }>PriceCharting Data</Button>
+
+      <Dialog open={ open } onClose={ handleClose } aria-labelledby="form-dialog-title">
+        <DialogContent>
+          <DialogContentText></DialogContentText>
+          <AddItemForm item_id={ selectionModel! } />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={ handleClose }>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={ priceChartingData !== null } onClose={ handleClose } aria-labelledby="price-charting-dialog-title">
+        <DialogContent>
+          <DialogContentText>PriceCharting Data</DialogContentText>
+            <DialogContent>
+              <PriceCharting data={priceChartingData} />
+            </DialogContent>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={ handleClose }>Close</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }

@@ -18,12 +18,8 @@ are results returned from their api.
 
 ISSUES:
 - Need to run "set NODE_OPTIONS=--openssl-legacy-provider" for the first time that I run "npm start" after opening VS Code
-- Create function isn't working on the data table
 
 TODO:
-- Create Stash Item Table
-- Get stash_id from the selected Stash in the datatable to pass onto useGetItemData in FetchData and 
-  also the api routes to create items
 - Figure out how to incorporate the pricecharting api
 - Finish styling
 

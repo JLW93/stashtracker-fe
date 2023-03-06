@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import { useGetData } from '../../custom-hooks';
 import { server_calls } from '../../api';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, makeStyles } from '@material-ui/core';
 import { CreateStashForm } from '../CreateStashForm';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const columns: GridColDef[] = [
   { field: 'stash_id', headerName: 'Stash ID', width: 90, hide: true },
@@ -20,7 +20,11 @@ interface gridData {
 
 const navigateToStash = ( row: any ) => {
   const url = `/stashes/${row.id}`;
-  console.log(row.stash_id)
+  // const history = useHistory();
+  // history.push({
+  //   pathname: url,
+  //   state: { stash_id: row.id }
+  // })
   window.location.href = url
 }
 
@@ -32,9 +36,14 @@ export const DataTable = () => {
 
     let { stashData, getData } = useGetData();
     let [ open, setOpen ] = useState(false);
-    // let [ gridData, setData ] = useState<gridData>( { data: {} } );
     const [ selectionModel, setSelectionModel ] = useState<string[]>( [] );
     const classes = useStyles();
+
+    useEffect( () => {
+      if ( selectionModel.length > 0 ) {
+        localStorage.setItem('stash_id', selectionModel[0])
+      }
+    }, [selectionModel])
 
     let handleOpen = () => {
       setOpen(true);
@@ -58,10 +67,8 @@ export const DataTable = () => {
       pageSize={ 10 } 
       checkboxSelection={ true }
       getRowId={ ( row: any ) => row.stash_id }
-      onRowClick={ (row: any) => {
-        console.log(row);
-        navigateToStash( row )}}
-      onSelectionModelChange={ (item: any ) => {
+      onRowClick={ (row: any) => navigateToStash( row )}
+      onSelectionModelChange={ ( item: any ) => {
         setSelectionModel( item )
       }} />
 
