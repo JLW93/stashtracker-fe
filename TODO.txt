@@ -20,7 +20,6 @@ ISSUES:
 - Need to run "set NODE_OPTIONS=--openssl-legacy-provider" for the first time that I run "npm start" after opening VS Code
 
 TODO:
-- Figure out how to incorporate the pricecharting api
 - Finish styling
 
 - NOT IMPORTANT: If there is enough time, enable Google Login and figure out how to get users who are logged in that way

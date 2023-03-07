@@ -31,42 +31,111 @@ const columns: GridColDef[] = [
 ]
 
 const useStyles = makeStyles({
-
-});
+  tableBackground: {
+    background: 'rgba(51, 51, 51, 0.7)',
+    border: 'none',
+    borderRadius: '0px'
+  },
+  margin: {
+    marginLeft: '25px',
+    marginRight: '25px'
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  col: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tableText: {
+    color: 'white',
+    fontFamily: 'Nunito',
+    fontWeight: 500,
+    fontSize: '18px',
+    textAlign: 'center'
+  },
+  radiusShadow: {
+    borderRadius: '0px 0px 25px 25px',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  },
+  tableButton: {
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    borderRadius: '6px',
+    marginLeft: '30px',
+    marginBottom: '30px',
+    fontFamily: 'Nunito',
+    fontWeight: 700,
+    textTransform: 'none',
+    fontSize: '18px'
+  },
+  greenButton: {
+    background: '#89CE94',
+    color: '#FFF',
+    '&:hover': {
+      background: '#6FC37D'
+    }
+  },
+  redButton: {
+    background: '#CD4242',
+    color: '#333',
+    '&:hover': {
+      background: '#C13333'
+    }
+  },
+  purpleButton: {
+    background: '#7D5BA6',
+    color: '#FFF',
+    '&:hover': {
+      background: '#6D4F92'
+    }
+  }
+})
 
 export const ItemDataTable = () => {
   
   let { stashItemData: itemData, getData } = useGetItemData(stashId || '');
-  let [ open, setOpen ] = useState(false);
+  let [ editOpen, setEditOpen ] = useState(false);
+  let [ priceOpen, setPriceOpen ] = useState(false);
   const [ selectionModel, setSelectionModel ] = useState<string[]>( [] );
   const [ priceChartingData, setPriceChartingData ] = useState<any>(null)
   const classes = useStyles();
 
-  
+  useEffect( () => {
+    console.log(priceChartingData)
+  }, [priceChartingData])
 
   let handlePriceChartingData = async () => {
-    // console.log(selectionModel)
     const data = await server_calls.getStashItem(stashId || '', selectionModel[0])
     // console.log(data)
 
     let itemName = data['item_name']
     const priceData = await server_calls.getPriceData(itemName);
     // console.log(priceData)
+    const newPriceData = {
+        consoleName: priceData['console-name'],
+        id: priceData['id'],
+        loosePrice: priceData['loose-price'],
+        productName: priceData['product-name'],
+        status: priceData['status']
+    };
 
-    setOpen(true);
-    setPriceChartingData(priceData);
+    setPriceOpen(true);
+    setPriceChartingData(newPriceData);
   };
 
-  useEffect( () => {
-    console.log(priceChartingData)
-  }, [priceChartingData])
-
-  let handleOpen = () => {
-    setOpen(true);
+  let handleEditOpen = () => {
+    setEditOpen(true);
   };
 
   let handleClose = () => {
-    setOpen(false);
+    setEditOpen(false);
+    setPriceOpen(false);
+    setPriceChartingData(null);
   };
 
   let deleteData = () => {
@@ -76,37 +145,48 @@ export const ItemDataTable = () => {
   };
 
   return (
-    <div style={ { height: 400, width: '100%' } }>
-      <DataGrid rows={ itemData } columns={ columns } pageSize={ 10 } checkboxSelection={ true } getRowId={ (row) => row.item_id}
-      onSelectionModelChange={ ( item: any ) => {
-        setSelectionModel( item )
-      }} />
+    <>
+      <div style={ { height: 792, width: '97%' } } className={`${classes.margin} ${classes.col}`}>
+        <DataGrid 
+          rows={ itemData } 
+          columns={ columns } 
+          pageSize={ 10 } 
+          checkboxSelection={ true } 
+          getRowId={ (row) => row.item_id}
+          onSelectionModelChange={ ( item: any ) => {
+          setSelectionModel( item )
+          }} 
+          className={`${classes.tableBackground} ${classes.tableText}`} />
 
-      <Button onClick={ handleOpen }>Edit</Button>
-      <Button onClick={ deleteData }>Delete</Button>
-      <Button onClick={ handlePriceChartingData }>PriceCharting Data</Button>
+        <div className={`${classes.radiusShadow} ${classes.tableBackground}`}>
+          <Button onClick={ handleEditOpen } className={`${classes.tableButton} ${classes.greenButton}`}>Edit</Button>
+          <Button onClick={ deleteData } className={`${classes.tableButton} ${classes.redButton}`}>Delete</Button>
+          <Button onClick={ handlePriceChartingData } className={`${classes.tableButton} ${classes.purpleButton}`}>PriceCharting Data</Button>
+        </div>
+        <Dialog open={ editOpen } onClose={ handleClose } aria-labelledby="form-dialog-title">
+          <DialogContent>
+            <DialogContentText></DialogContentText>
+            <AddItemForm item_id={ selectionModel! } />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={ handleClose } className={classes.redButton}>Cancel</Button>
+          </DialogActions>
+        </Dialog>
 
-      <Dialog open={ open } onClose={ handleClose } aria-labelledby="form-dialog-title">
-        <DialogContent>
-          <DialogContentText></DialogContentText>
-          <AddItemForm item_id={ selectionModel! } />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={ handleClose }>Cancel</Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={ priceChartingData !== null } onClose={ handleClose } aria-labelledby="price-charting-dialog-title">
-        <DialogContent>
-          <DialogContentText>PriceCharting Data</DialogContentText>
-            <DialogContent>
-              <PriceCharting data={priceChartingData} />
-            </DialogContent>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={ handleClose }>Close</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+        <Dialog open={ priceChartingData !== null } onClose={ handleClose } aria-labelledby="price-charting-dialog-title">
+          <DialogContent>
+            <DialogContentText>PriceCharting Data</DialogContentText>
+            { priceChartingData &&
+              <DialogContent>
+                <PriceCharting data={priceChartingData} />
+              </DialogContent>
+            }
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={ handleClose } className={classes.redButton}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    </>
   )
 }

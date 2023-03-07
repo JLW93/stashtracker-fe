@@ -3,7 +3,7 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import {chooseItemName, chooseItemType, chooseItemValue, choosePurchaseDate, chooseQuantity, chooseSerialNumber } from '../../redux/slices/RootSlice';
 import { Input } from '../SharedComponents/Input';
-import { Button } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import { stashId } from '../DataTable/stashId';
 import { server_calls } from '../../api';
 
@@ -21,12 +21,42 @@ interface ItemState {
     quantity: string;
 };
 
+const useStyles = makeStyles({
+    row: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    col: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    center: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    greenButton: {
+        background: '#89CE94',
+        color: '#FFF',
+        '&:hover': {
+          background: '#6FC37D'
+        }
+      },
+      redButton: {
+        background: '#CD4242',
+        color: '#333',
+        '&:hover': {
+          background: '#C13333'
+        }
+      }
+});
+
 export const AddItemForm = ( props: CreateItemFormProps) => {
 
     const dispatch = useDispatch();
     const store = useStore();
     const name = useSelector<ItemState>( state => state.item_name);
     const { register, handleSubmit } = useForm( { } )
+    const classes = useStyles();
 
     const onSubmit = ( data: any, event: any ) => {
         console.log(props.item_id)
@@ -49,33 +79,39 @@ export const AddItemForm = ( props: CreateItemFormProps) => {
     }
 
     return (
-        <div>
+        <div className={`${classes.row} ${classes.center}`}>
             <form onSubmit={ handleSubmit( onSubmit ) }>
                 <div>
-                    <label htmlFor="item_name">Item Name</label>
-                    <Input { ...register('item_name') } name="item_name" placeholder="Item Name" />
+                    <div>
+                        <label htmlFor="item_name">Item Name</label>
+                        <Input { ...register('item_name') } name="item_name" placeholder="Item Name" />
+                    </div>
+                    <div>
+                        <label htmlFor="item_type">Brand</label>
+                        <Input { ...register('item_type') } name="item_type" placeholder="Brand" />
+                    </div>
                 </div>
                 <div>
-                    <label htmlFor="item_type">Brand</label>
-                    <Input { ...register('item_type') } name="item_type" placeholder="Brand" />
+                    <div>
+                        <label htmlFor="item_value">Purchase Price</label>
+                        <Input { ...register('item_value') } name="item_value" placeholder="Item Value" />
+                    </div>
+                    <div>
+                        <label htmlFor="purchase_date">Purchase Date</label>
+                        <Input { ...register('purchase_date') } name="purchase_date" placeholder="Purchase Date" />
+                    </div>
                 </div>
                 <div>
-                    <label htmlFor="item_value">Purchase Price</label>
-                    <Input { ...register('item_value') } name="item_value" placeholder="Item Value" />
+                    <div>
+                        <label htmlFor="serial_number">Serial Number</label>
+                        <Input { ...register('serial_number') } name="serial_number" placeholder="Serial Number" />
+                    </div>
+                    <div>
+                        <label htmlFor="quantity">Quantity</label>
+                        <Input { ...register('quantity') } name="quantity" placeholder="Quantity" />
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="purchase_date">Purchase Date</label>
-                    <Input { ...register('purchase_date') } name="purchase_date" placeholder="Purchase Date" />
-                </div>
-                <div>
-                    <label htmlFor="serial_number">Serial Number</label>
-                    <Input { ...register('serial_number') } name="serial_number" placeholder="Serial Number" />
-                </div>
-                <div>
-                    <label htmlFor="quantity">Quantity</label>
-                    <Input { ...register('quantity') } name="quantity" placeholder="Quantity" />
-                </div>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" className={classes.greenButton}>Submit</Button>
             </form>
         </div>
     )

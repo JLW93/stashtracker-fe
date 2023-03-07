@@ -187,7 +187,7 @@ export const Navbar = withRouter( ( props: NavProps )  => {
             </div>
             <div className={`${classes.navbarSpacing} ${classes.row} ${classes.center}`}>
                 {loggedIn ? (
-                    <Button className={classes.navButton} onClick={handleLogOut}>Log Out</Button>
+                    <Button className={classes.navButtonSmall} onClick={handleLogOut}><span className={classes.buttonTextSmall}>Log Out</span></Button>
                 ) : (
                 <>
                     <Button className={classes.navButton}>

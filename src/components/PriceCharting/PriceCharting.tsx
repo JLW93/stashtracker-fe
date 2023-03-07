@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { makeStyles } from '@material-ui/core';
 
 interface PriceChartingProps {
     data: {
@@ -10,20 +11,61 @@ interface PriceChartingProps {
     }
 }
 
+const useStyles = makeStyles({
+  titleText: {
+    fontFamily: 'Nunito',
+    fontWeight: 800,
+    fontSize: '28px'
+  },
+  subText: {
+    fontFamily: 'Nunito',
+    fontWeight: 500,
+    fontSize: '18px'
+  },
+  tableMargins: {
+    marginTop: '50px',
+    marginLeft: '5px',
+    marginRight: '5px'
+  },
+  tablePadding: {
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    padding: '20px'
+  },
+  padding: {
+    paddingLeft: '75px'
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex'
+  },
+  bold: {
+    fontWeight: 800
+  }
+});
+
 export const PriceCharting = (props: PriceChartingProps) => {
 
+  const classes = useStyles();
+  const formatCurrency = ( amount: number ) => {
+    return '$' + (amount / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 } ) + ' USD';
+  }
+
   return (
-    <div style={ { height: 400, width: '100%' } }>
-      <h2>{props.data.productName}</h2>
-      <table>
+    <div style={ { height: 400, width: '100%' } } >
+      <div style={ { width: '100%'}} className={classes.center}>
+        <h2 className={`${classes.titleText}`}>{props.data.productName}</h2>
+      </div>
+      <table className={`${classes.subText} ${classes.tableMargins}`}>
         <tbody>
             <tr>
-                <td>Name 1</td>
-                <td>{props.data.consoleName}</td>
+                <td className={`${classes.tablePadding} ${classes.bold}`}>Console/Set Name: </td>
+                <td className={classes.tablePadding}>{props.data.consoleName}</td>
             </tr>
             <tr>
-                <td>Name 2</td>
-                <td>{props.data.loosePrice}</td>
+                <td className={`${classes.tablePadding} ${classes.bold}`}>Loose/Ungraded Price: </td>
+                <td className={classes.tablePadding}>{formatCurrency(props.data.loosePrice)}</td>
             </tr>
         </tbody>
       </table>
