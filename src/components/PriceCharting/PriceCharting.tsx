@@ -15,12 +15,14 @@ const useStyles = makeStyles({
   titleText: {
     fontFamily: 'Nunito',
     fontWeight: 800,
-    fontSize: '28px'
+    fontSize: '28px',
+    color: '#89CE94'
   },
   subText: {
     fontFamily: 'Nunito',
     fontWeight: 500,
-    fontSize: '18px'
+    fontSize: '18px',
+    color: '#F1F0F0'
   },
   tableMargins: {
     marginTop: '50px',
@@ -53,7 +55,7 @@ export const PriceCharting = (props: PriceChartingProps) => {
   }
 
   return (
-    <div style={ { height: 400, width: '100%' } } >
+    <div style={ { height: 400, width: '100%', paddingTop: '25px' } } >
       <div style={ { width: '100%'}} className={classes.center}>
         <h2 className={`${classes.titleText}`}>{props.data.productName}</h2>
       </div>

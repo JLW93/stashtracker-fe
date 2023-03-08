@@ -22,12 +22,20 @@ const useStyles = makeStyles({
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         borderRadius: '20px'
     },
+    text: {
+        fontSize: '18px',
+        fontFamily: 'Nunito',
+        color: '#FFF',
+        marginLeft: '10px'
+    },
     greenButton: {
         background: '#89CE94',
         color: '#FFF',
         '&:hover': {
           background: '#6FC37D'
-        }
+        },
+        marginTop: '15px',
+        marginLeft: '10px'
       },
       redButton: {
         background: '#CD4242',
@@ -65,8 +73,8 @@ export const CreateStashForm = ( props: CreateStashFormProps) => {
         <div>
             <form onSubmit={ handleSubmit( onSubmit ) }>
                 <div>
-                    <label htmlFor="stash_name">Stash Name</label>
-                    <Input { ...register('stash_name') } name="stash_name" placeholder="Stash Name" />
+                    <label htmlFor="stash_name" className={`${classes.text}`}>Stash Name</label>
+                    <Input { ...register('stash_name') } name="stash_name" />
                 </div>
                 <Button type="submit" className={classes.greenButton}>Submit</Button>
             </form>

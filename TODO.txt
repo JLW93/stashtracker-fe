@@ -18,6 +18,7 @@ are results returned from their api.
 
 ISSUES:
 - Need to run "set NODE_OPTIONS=--openssl-legacy-provider" for the first time that I run "npm start" after opening VS Code
+- create function for items not working, dict object not callable
 
 TODO:
 - Finish styling

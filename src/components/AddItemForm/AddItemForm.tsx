@@ -39,7 +39,9 @@ const useStyles = makeStyles({
         color: '#FFF',
         '&:hover': {
           background: '#6FC37D'
-        }
+        },
+        marginTop: '15px',
+        marginLeft: '10px'
       },
       redButton: {
         background: '#CD4242',
@@ -47,7 +49,18 @@ const useStyles = makeStyles({
         '&:hover': {
           background: '#C13333'
         }
-      }
+      },
+      text: {
+        fontSize: '18px',
+        fontFamily: 'Nunito',
+        color: '#FFF',
+        marginLeft: '10px'
+    },
+    warningText: {
+        fontSize: '14px',
+        color: '#CD4242',
+        fontWeight: 800
+    }
 });
 
 export const AddItemForm = ( props: CreateItemFormProps) => {
@@ -83,32 +96,32 @@ export const AddItemForm = ( props: CreateItemFormProps) => {
             <form onSubmit={ handleSubmit( onSubmit ) }>
                 <div>
                     <div>
-                        <label htmlFor="item_name">Item Name</label>
-                        <Input { ...register('item_name') } name="item_name" placeholder="Item Name" />
+                        <label htmlFor="item_name" className={`${classes.text}`}>Item Name</label>
+                        <Input { ...register('item_name') } name="item_name" />
                     </div>
                     <div>
-                        <label htmlFor="item_type">Brand</label>
-                        <Input { ...register('item_type') } name="item_type" placeholder="Brand" />
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label htmlFor="item_value">Purchase Price</label>
-                        <Input { ...register('item_value') } name="item_value" placeholder="Item Value" />
-                    </div>
-                    <div>
-                        <label htmlFor="purchase_date">Purchase Date</label>
-                        <Input { ...register('purchase_date') } name="purchase_date" placeholder="Purchase Date" />
+                        <label htmlFor="item_type" className={`${classes.text}`}>Brand</label>
+                        <Input { ...register('item_type') } name="item_type" />
                     </div>
                 </div>
                 <div>
                     <div>
-                        <label htmlFor="serial_number">Serial Number</label>
-                        <Input { ...register('serial_number') } name="serial_number" placeholder="Serial Number" />
+                        <label htmlFor="item_value" className={`${classes.text}`}>Purchase Price</label>
+                        <Input { ...register('item_value') } name="item_value" />
                     </div>
                     <div>
-                        <label htmlFor="quantity">Quantity</label>
-                        <Input { ...register('quantity') } name="quantity" placeholder="Quantity" />
+                        <label htmlFor="purchase_date" className={`${classes.text}`}>Purchase Date</label>
+                        <Input { ...register('purchase_date') } name="purchase_date" />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label htmlFor="serial_number" className={`${classes.text}`}>Serial Number <span className={classes.warningText}>* Enter '0' if no serial</span></label>
+                        <Input { ...register('serial_number') } name="serial_number" />
+                    </div>
+                    <div>
+                        <label htmlFor="quantity" className={`${classes.text}`}>Quantity</label>
+                        <Input { ...register('quantity') } name="quantity" />
                     </div>
                 </div>
                 <Button type="submit" className={classes.greenButton}>Submit</Button>

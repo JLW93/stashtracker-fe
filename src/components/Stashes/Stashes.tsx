@@ -48,7 +48,8 @@ const useStyles = makeStyles({
     },
     tableBackgroundTop: {
         background: 'rgba(51, 51, 51, 0.7)',
-        borderRadius: '25px 25px 0px 0px'
+        borderRadius: '25px 25px 0px 0px',
+        width: '95.05%'
     },
     bottomBorder: {
         borderBottom: '2px solid #333',
@@ -61,21 +62,27 @@ const useStyles = makeStyles({
     topMargin: {
         marginTop: '75px'
     },
-    // dialogBackgroundMain: {
-    //     background: 'rgba(51, 51, 51, 0.9)',
-    //     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-    //     borderRadius: '0px'
-    // },
-    // dialogBackgroundTop: {
-    //     background: 'rgba(51, 51, 51, 0.9)',
-    //     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-    //     borderRadius: '20px 20px 0px 0px'
-    // },
-    // dialogBackgroundBottom: {
-    //     background: 'rgba(51, 51, 51, 0.9)',
-    //     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-    //     borderRadius: '0px 0px 20px 20px'
-    // },
+    paper: {
+        background: 'rgba(51, 51, 51, 0.8)',
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        borderRadius: '20px'
+    },
+    dialogTitleText: {
+        fontFamily: 'Nunito',
+        fontWeight: 800,
+        fontSize: '36px',
+        color: '#FFF',
+        marginTop: '25px',
+        textShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        textAlign: 'center'
+    },
+    dialogSecondaryText: {
+        fontFamily: 'Nunito',
+        fontSize: '24px'
+    },
+    primary: {
+        fontSize: '50px'
+    },
     greenButton: {
         background: '#89CE94',
         color: '#FFF',
@@ -88,7 +95,10 @@ const useStyles = makeStyles({
         color: '#333',
         '&:hover': {
           background: '#C13333'
-        }
+        },
+        marginBottom: '15px',
+        marginRight: '15px'
+        
       }
 });
 
@@ -127,9 +137,9 @@ export const Stashes = () => {
                             <div className={classes.bottomBorder}>
                                 <div className={`${classes.end} ${classes.row}`}>
                                     <Button onClick={handleDialogClickOpen} className={classes.purpleButton}>Create a new Stash</Button>
-                                    <Dialog open={dialogOpen} onClose={handleDialogClickOpen} aria-labelledby="form-dialog-title">
-                                        <DialogTitle id="form-dialog-title">Create a new Stash</DialogTitle>
-                                        <DialogContent>
+                                    <Dialog classes={{ paper: classes.paper }} open={dialogOpen} onClose={handleDialogClickOpen} aria-labelledby="form-dialog-title">
+                                        <DialogTitle id="form-dialog-title" classes={{root: classes.dialogTitleText}}>Create a new <span className={classes.purpleText}>Stash</span></DialogTitle>
+                                        <DialogContent classes={{ root: classes.dialogSecondaryText }}>
                                             <DialogContentText></DialogContentText>
                                             <CreateStashForm />
                                         </DialogContent>
@@ -150,9 +160,9 @@ export const Stashes = () => {
                             <div className={classes.bottomBorder}>
                                 <div className={`${classes.end} ${classes.row}`}>
                                     <Button onClick={handleDialogClickOpen} className={classes.purpleButton}>Add Item</Button>
-                                    <Dialog open={dialogOpen} onClose={handleDialogClickOpen} aria-labelledby="form-dialog-title">
-                                        <DialogTitle id="form-dialog-title">Add an Item</DialogTitle>
-                                        <DialogContent>
+                                    <Dialog classes={{ paper: classes.paper }} open={dialogOpen} onClose={handleDialogClickOpen} aria-labelledby="form-dialog-title">
+                                        <DialogTitle id="form-dialog-title" classes={{root: classes.dialogTitleText}}>Add an Item</DialogTitle>
+                                        <DialogContent classes={{ root: classes.dialogSecondaryText }}>
                                             <DialogContentText></DialogContentText>
                                             <AddItemForm />
                                         </DialogContent>

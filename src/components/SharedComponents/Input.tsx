@@ -1,13 +1,27 @@
 import React, { forwardRef } from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField, makeStyles } from '@material-ui/core';
 
 interface inputType {
     name: string;
-    placeholder: string;
+    placeholder?: string;
+    className?: string;
 };
 
+const useStyles = makeStyles({
+    input: {
+        background: '#F1F0F0',
+        borderRadius: '30px',
+        border: '0px',
+        height: '30px',
+        padding: '10px',
+        fontFamily: 'Nunito'
+    },
+})
+
 export const Input = forwardRef( ( props: inputType, ref )  => {
+    const classes = useStyles();
+
     return (
-        <TextField variant="outlined" margin="normal" inputRef={ ref } fullWidth type="text" { ...props }></TextField>
+        <TextField InputProps={{ disableUnderline: true }} margin="normal" inputRef={ ref } fullWidth type="text" { ...props } className={classes.input}></TextField>
     );
 });

@@ -3,7 +3,7 @@ import { token } from "./token";
 export const server_calls = {
 
     getStashes: async () => {
-        const response = await fetch(`http://127.0.0.1:5000/api/stashes`, {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/api/stashes`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ export const server_calls = {
     },
 
     createStash: async ( data: any = {}) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/stashes`, {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/api/stashes`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export const server_calls = {
     },
 
     updateStash: async ( stash_id: string, data: any = {} ) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/stashes/${stash_id}`, {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/api/stashes/${stash_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export const server_calls = {
     },
 
     deleteStash: async ( stash_id: string ) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/stashes/${stash_id}`, {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/api/stashes/${stash_id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export const server_calls = {
     },
 
     getStashItems: async ( stash_id: string ) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/stashes/${stash_id}/items`, {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/api/stashes/${stash_id}/items`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export const server_calls = {
     },
 
     getStashItem: async ( stash_id: string, item_id: string ) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/stashes/${stash_id}/items/${item_id}`, {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/api/stashes/${stash_id}/items/${item_id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export const server_calls = {
     },
 
     createStashItem: async ( stash_id: string, data: any = {} ) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/stashes/${stash_id}/items`, {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/api/stashes/${stash_id}/items`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ export const server_calls = {
     },
 
     updateStashItem: async ( stash_id: string, item_id: string, data: any = {} ) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/stashes/${stash_id}/items/${item_id}`, {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/api/stashes/${stash_id}/items/${item_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ export const server_calls = {
     },
 
     deleteStashItem: async ( stash_id: string, item_id: string ) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/stashes/${stash_id}/items/${item_id}`, {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/api/stashes/${stash_id}/items/${item_id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

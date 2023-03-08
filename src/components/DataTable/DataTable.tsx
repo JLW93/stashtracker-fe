@@ -27,7 +27,8 @@ const useStyles = makeStyles({
   tableBackground: {
     background: 'rgba(51, 51, 51, 0.7)',
     borderRadius: '0px',
-    border: 'none'
+    border: 'none',
+    width: '97%'
   },
   margin: {
     marginLeft: '25px',
@@ -86,6 +87,24 @@ const useStyles = makeStyles({
     '&:hover': {
       background: '#6D4F92'
     }
+  },
+  paper: {
+    background: 'rgba(51, 51, 51, 0.8)',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    borderRadius: '20px'
+},
+dialogTitleText: {
+    fontFamily: 'Nunito',
+    fontWeight: 800,
+    fontSize: '36px',
+    color: '#FFF',
+    marginTop: '25px',
+    textShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    textAlign: 'center'
+  },
+  redButtonMargin: {
+    marginBottom: '15px',
+    marginRight: '15px',
   }
 })
 
@@ -127,7 +146,7 @@ export const DataTable = () => {
 
   return (
     <>
-      <div style={ {  height: 792, width: width > 1760 ? "98.5%" : "97%"} } className={`${classes.margin} ${classes.col}`}>
+      <div style={ {  height: 792, width: "98%"} } className={`${classes.margin} ${classes.col}`}>
         <DataGrid 
         rows={ stashData } 
         columns={ columns } 
@@ -145,13 +164,13 @@ export const DataTable = () => {
           <Button onClick={ deleteData } className={`${classes.tableButton} ${classes.redButton}`}>Delete</Button>
         </div>
 
-        <Dialog open={ open } onClose={ handleClose } aria-labelledby="form-dialog-title">
+        <Dialog classes={{ paper: classes.paper }} open={ open } onClose={ handleClose } aria-labelledby="form-dialog-title">
           <DialogContent>
             <DialogContentText></DialogContentText>
             <CreateStashForm stash_id={ selectionModel! } />
           </DialogContent>
           <DialogActions>
-            <Button onClick={ handleClose } className={classes.redButton}>Cancel</Button>
+            <Button onClick={ handleClose } className={`${classes.redButton} ${classes.redButtonMargin}`}>Cancel</Button>
           </DialogActions>
         </Dialog>
       </div>

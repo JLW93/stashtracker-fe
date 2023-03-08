@@ -156,7 +156,9 @@ export const Navbar = withRouter( ( props: NavProps )  => {
 
     const handleLogOut = async () => {
         localStorage.removeItem('token');
-        setLoggedIn(false)
+        localStorage.removeItem('stash_id');
+        setLoggedIn(false);
+        setTimeout( () => { window.location.reload() }, 1000 )
     };
 
   return (

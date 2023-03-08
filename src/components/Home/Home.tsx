@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { Link, BrowserRouter as Router } from 'react-router-dom';
@@ -73,6 +73,16 @@ const useStyles = makeStyles({
 export const Home = ( props: Props ) => {
 
   const classes = useStyles();
+  const [ loggedIn, setLoggedIn ] = useState(false);
+
+    useEffect( () => {
+        const token = localStorage.getItem('token');
+        if ( token ) {
+            setLoggedIn(true);
+        } else {
+            setLoggedIn(false);
+        }
+    }, []);
 
   return (
     <>
@@ -84,9 +94,14 @@ export const Home = ( props: Props ) => {
           </h1>
       </div>
       <div className={classes.div}>
+      {loggedIn ? (
         <Button className={`${classes.button} ${classes.buttonSpacing}`}>
-            <Link to='/signup' className={classes.buttonText}>Start Tracking <span className={`${classes.innerButton}`}>Free</span></Link>
+            <Link to='/stashes' className={classes.buttonText}>Start Tracking <span className={`${classes.innerButton}`}>Free</span></Link>
+        </Button>) : (
+        <Button className={`${classes.button} ${classes.buttonSpacing}`}>
+          <Link to='/signup' className={classes.buttonText}>Start Tracking <span className={`${classes.innerButton}`}>Free</span></Link>
         </Button>
+        )}
       </div>
     </>
   )

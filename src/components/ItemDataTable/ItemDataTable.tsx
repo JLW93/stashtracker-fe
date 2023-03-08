@@ -23,7 +23,7 @@ const columns: GridColDef[] = [
   { field: 'item_id', headerName: 'Item ID', width: 90, hide: true },
   { field: 'item_name', headerName: 'Item Name', flex: 1 },
   { field: 'item_type', headerName: 'Item Type', flex: 1 },
-  { field: 'item_value', headerName: 'Item Value', flex: 1 },
+  { field: 'item_value', headerName: 'Purchase Price', flex: 1 },
   { field: 'purchase_date', headerName: 'Purchase Date', flex: 1 },
   { field: 'serial_number', headerName: 'Serial Number', flex: 1 },
   { field: 'quantity', headerName: 'Quantity', flex: 1 },
@@ -34,7 +34,8 @@ const useStyles = makeStyles({
   tableBackground: {
     background: 'rgba(51, 51, 51, 0.7)',
     border: 'none',
-    borderRadius: '0px'
+    borderRadius: '0px',
+    width: '97%'
   },
   margin: {
     marginLeft: '25px',
@@ -85,7 +86,7 @@ const useStyles = makeStyles({
     color: '#333',
     '&:hover': {
       background: '#C13333'
-    }
+    },
   },
   purpleButton: {
     background: '#7D5BA6',
@@ -93,6 +94,20 @@ const useStyles = makeStyles({
     '&:hover': {
       background: '#6D4F92'
     }
+  },
+  paper: {
+    background: 'rgba(51, 51, 51, 0.8)',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    borderRadius: '20px'
+  },
+  dialogSecondaryText: {
+    fontFamily: 'Nunito',
+    fontSize: '18px',
+    color: '#FFF'
+  },
+  redButtonMargin: {
+    marginBottom: '15px',
+    marginRight: '15px',
   }
 })
 
@@ -146,7 +161,7 @@ export const ItemDataTable = () => {
 
   return (
     <>
-      <div style={ { height: 792, width: '97%' } } className={`${classes.margin} ${classes.col}`}>
+      <div style={ {  height: 792, width: "98%"} } className={`${classes.margin} ${classes.col}`}>
         <DataGrid 
           rows={ itemData } 
           columns={ columns } 
@@ -163,19 +178,19 @@ export const ItemDataTable = () => {
           <Button onClick={ deleteData } className={`${classes.tableButton} ${classes.redButton}`}>Delete</Button>
           <Button onClick={ handlePriceChartingData } className={`${classes.tableButton} ${classes.purpleButton}`}>PriceCharting Data</Button>
         </div>
-        <Dialog open={ editOpen } onClose={ handleClose } aria-labelledby="form-dialog-title">
+        <Dialog classes={{ paper: classes.paper }} open={ editOpen } onClose={ handleClose } aria-labelledby="form-dialog-title">
           <DialogContent>
             <DialogContentText></DialogContentText>
             <AddItemForm item_id={ selectionModel! } />
           </DialogContent>
           <DialogActions>
-            <Button onClick={ handleClose } className={classes.redButton}>Cancel</Button>
+            <Button onClick={ handleClose } className={`${classes.redButton} ${classes.redButtonMargin}`}>Cancel</Button>
           </DialogActions>
         </Dialog>
 
-        <Dialog open={ priceChartingData !== null } onClose={ handleClose } aria-labelledby="price-charting-dialog-title">
+        <Dialog classes={{ paper: classes.paper }} open={ priceChartingData !== null } onClose={ handleClose } aria-labelledby="price-charting-dialog-title">
           <DialogContent>
-            <DialogContentText>PriceCharting Data</DialogContentText>
+            <DialogContentText classes={{ root: classes.dialogSecondaryText }}>PriceCharting Data</DialogContentText>
             { priceChartingData &&
               <DialogContent>
                 <PriceCharting data={priceChartingData} />
@@ -183,7 +198,7 @@ export const ItemDataTable = () => {
             }
           </DialogContent>
           <DialogActions>
-            <Button onClick={ handleClose } className={classes.redButton}>Close</Button>
+            <Button onClick={ handleClose } className={`${classes.redButton} ${classes.redButtonMargin}`}>Close</Button>
           </DialogActions>
         </Dialog>
       </div>
