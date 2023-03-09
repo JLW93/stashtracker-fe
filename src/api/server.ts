@@ -164,5 +164,55 @@ export const server_calls = {
 
         // use graded-price, loose-price, product-name, console name
         // prices are shown in penny amount, need to be formatted
+    },
+
+    getUserData: async () => {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/get-user-data`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve User data.')
+        }; 
+
+        return await response.json()
+    },
+
+    updateUserData: async ( data: any = {} ) => {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/update-data`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update User data.')
+        }; 
+
+        return await response.json()
+    },
+
+    updateUserPassword: async ( token: string, data: any = {} ) => {
+        const response = await fetch(`https://enthusiastic-sweltering-group.glitch.me/update-password`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update password.')
+        }; 
+
+        return await response.json()
     }
 }

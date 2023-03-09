@@ -180,6 +180,13 @@ export const Navbar = withRouter( ( props: NavProps )  => {
                             Stashes
                         </Link>
                     </h2>
+                    {loggedIn ? (
+                    <h2 className={`${classes.navText} ${classes.navbarTextSpacing}`}>
+                        <Link to='/account' className={classes.link}>
+                            Account
+                        </Link>
+                    </h2>
+                    ) : (<h2></h2>)}
                     <h2 className={`${classes.navText} ${classes.navbarTextSpacing}`}>
                         <Link to='/about' className={classes.link}>
                             About

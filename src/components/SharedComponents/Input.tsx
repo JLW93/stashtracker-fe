@@ -5,6 +5,7 @@ interface inputType {
     name: string;
     placeholder?: string;
     className?: string;
+    type?: 'text' | 'password' | 'email'
 };
 
 const useStyles = makeStyles({
