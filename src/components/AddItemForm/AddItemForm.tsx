@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import {chooseItemName, chooseItemType, chooseItemValue, choosePurchaseDate, chooseQuantity, chooseSerialNumber } from '../../redux/slices/RootSlice';
@@ -9,7 +9,15 @@ import { server_calls } from '../../api';
 
 interface CreateItemFormProps {
     item_id?: string[];
-    data?: {}
+    data?: {};
+    formData? : {
+        item_name: string;
+        item_type: string;
+        item_value: string;
+        purchase_date: string;
+        serial_number: string;
+        quantity: string;
+    }
 };
 
 interface ItemState {
@@ -71,9 +79,11 @@ export const AddItemForm = ( props: CreateItemFormProps) => {
     const { register, handleSubmit } = useForm( { } )
     const classes = useStyles();
 
+    
+
     const onSubmit = ( data: any, event: any ) => {
-        console.log(props.item_id)
-        console.log(data)
+        // console.log(props.item_id)
+        // console.log(data)
         if (props.item_id! && props.item_id.length > 0) {
             server_calls.updateStashItem( stashId || '', props.item_id[0]!, data);
             setTimeout ( () => { window.location.reload() }, 1000 );
@@ -97,31 +107,31 @@ export const AddItemForm = ( props: CreateItemFormProps) => {
                 <div>
                     <div>
                         <label htmlFor="item_name" className={`${classes.text}`}>Item Name</label>
-                        <Input { ...register('item_name') } name="item_name" />
+                        <Input { ...register('item_name') } name="item_name" defaultValue={ props.formData?.item_name} />
                     </div>
                     <div>
                         <label htmlFor="item_type" className={`${classes.text}`}>Brand</label>
-                        <Input { ...register('item_type') } name="item_type" />
+                        <Input { ...register('item_type') } name="item_type" defaultValue={ props.formData?.item_type} />
                     </div>
                 </div>
                 <div>
                     <div>
                         <label htmlFor="item_value" className={`${classes.text}`}>Purchase Price</label>
-                        <Input { ...register('item_value') } name="item_value" />
+                        <Input { ...register('item_value') } name="item_value" defaultValue={ props.formData?.item_value} />
                     </div>
                     <div>
                         <label htmlFor="purchase_date" className={`${classes.text}`}>Purchase Date</label>
-                        <Input { ...register('purchase_date') } name="purchase_date" />
+                        <Input { ...register('purchase_date') } name="purchase_date" defaultValue={ props.formData?.purchase_date} />
                     </div>
                 </div>
                 <div>
                     <div>
                         <label htmlFor="serial_number" className={`${classes.text}`}>Serial Number <span className={classes.warningText}>* Enter '0' if no serial</span></label>
-                        <Input { ...register('serial_number') } name="serial_number" />
+                        <Input { ...register('serial_number') } name="serial_number" defaultValue={ props.formData?.serial_number} />
                     </div>
                     <div>
                         <label htmlFor="quantity" className={`${classes.text}`}>Quantity</label>
-                        <Input { ...register('quantity') } name="quantity" />
+                        <Input { ...register('quantity') } name="quantity" defaultValue={ props.formData?.quantity} />
                     </div>
                 </div>
                 <Button type="submit" className={classes.greenButton}>Submit</Button>

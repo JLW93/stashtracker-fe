@@ -118,11 +118,43 @@ export const ItemDataTable = () => {
   let [ priceOpen, setPriceOpen ] = useState(false);
   const [ selectionModel, setSelectionModel ] = useState<string[]>( [] );
   const [ priceChartingData, setPriceChartingData ] = useState<any>(null)
+  const [ values, setValues ] = useState({
+    item_name: '',
+    item_type: '',
+    item_value: '',
+    purchase_date: '',
+    serial_number: '',
+    quantity: ''
+  })
+
+  let [ formData, setFormData ] = useState({
+    item_name: '',
+    item_type: '',
+    item_value: '',
+    purchase_date: '',
+    serial_number: '',
+    quantity: '',
+  });
+
   const classes = useStyles();
 
   useEffect( () => {
     console.log(priceChartingData)
   }, [priceChartingData])
+
+  useEffect( () => {
+    if (formData) {
+      setValues( {
+        ...values,
+        item_name: formData.item_name,
+        item_type: formData.item_type,
+        item_value: formData.item_value,
+        purchase_date: formData.purchase_date,
+        serial_number: formData.serial_number,
+        quantity: formData.quantity
+      });
+    }
+  }, [formData])
 
   let handlePriceChartingData = async () => {
     const data = await server_calls.getStashItem(stashId || '', selectionModel[0])
@@ -143,8 +175,11 @@ export const ItemDataTable = () => {
     setPriceChartingData(newPriceData);
   };
 
-  let handleEditOpen = () => {
+  let handleEditOpen = async () => {
+    const currentData = await server_calls.getStashItem(stashId || '', selectionModel[0]);
+    setFormData(currentData);
     setEditOpen(true);
+    
   };
 
   let handleClose = () => {
@@ -181,7 +216,7 @@ export const ItemDataTable = () => {
         <Dialog classes={{ paper: classes.paper }} open={ editOpen } onClose={ handleClose } aria-labelledby="form-dialog-title">
           <DialogContent>
             <DialogContentText></DialogContentText>
-            <AddItemForm item_id={ selectionModel! } />
+            <AddItemForm item_id={ selectionModel! } formData={ formData } />
           </DialogContent>
           <DialogActions>
             <Button onClick={ handleClose } className={`${classes.redButton} ${classes.redButtonMargin}`}>Cancel</Button>

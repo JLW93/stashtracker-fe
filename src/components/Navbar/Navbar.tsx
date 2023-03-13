@@ -158,7 +158,7 @@ export const Navbar = withRouter( ( props: NavProps )  => {
         localStorage.removeItem('token');
         localStorage.removeItem('stash_id');
         setLoggedIn(false);
-        setTimeout( () => { window.location.reload() }, 1000 )
+        setTimeout( () => { window.location.href = '/' }, 1000 )
     };
 
   return (
